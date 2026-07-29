@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilan's Creative Studio | Premium Handcrafted &amp; Homemade Creations</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Explore Dilan's Creative Studio. Discover premium handcrafted and homemade creations: custom greeting cards, scented soy candles, cute crochet items, and artisan Rakhis. Empowering local craftsmanship.">
+    <meta name="keywords" content="handmade crafts, custom greeting cards, scented soy candles, crochet toys, artisan rakhi, homemade gifts, creative studio, local crafts">
+    <meta name="author" content="Dilan's Creative Studio">
+
+    <!-- Fonts: Playfair Display for headings & Inter for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=14">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header" id="main-header">
+        <div class="container header-container">
+            <a href="#" class="logo" id="header-logo">
+                <span class="logo-text">Dilan's Creative Studio</span><span class="logo-dot">.</span>
+            </a>
+            
+            <nav class="nav-menu" id="nav-menu">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#collection" class="nav-link">Collection</a></li>
+                    <li><a href="#story" class="nav-link">Our Story</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <div class="search-box-wrapper">
+                    <button class="search-toggle-btn" id="search-toggle" aria-label="Toggle search bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <div class="search-dropdown" id="search-dropdown">
+                        <input type="text" id="product-search" placeholder="Search creations (e.g., Candle, Crochet, Rakhi)..." aria-label="Search creations">
+                        <button id="clear-search-btn" class="clear-search-btn" aria-label="Clear Search"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+
+                <button class="cart-trigger" id="cart-trigger-btn" aria-label="Open cart">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-badge" id="cart-badge-count">0</span>
+                </button>
+
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle-btn" aria-label="Toggle mobile menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay Drawer -->
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+        <div class="drawer-header">
+            <span class="logo-text">Dilan's Creative Studio</span>
+            <button class="drawer-close" id="mobile-drawer-close" aria-label="Close menu">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav-links">
+            <ul>
+                <li><a href="#home" class="mobile-link">Home</a></li>
+                <li><a href="#collection" class="mobile-link">Collection</a></li>
+                <li><a href="#story" class="mobile-link">Our Story</a></li>
+                <li><a href="#faq" class="mobile-link">FAQ</a></li>
+                <li><a href="#contact" class="mobile-link">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="home">
+            <div class="hero-bg-overlay"></div>
+            <canvas id="hero-particles-canvas" class="hero-particles"></canvas>
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <span class="hero-tagline">Handcrafted with Love &amp; Care</span>
+                    <h1 class="hero-title">Handmade Wonders for Every Occasion</h1>
+                    <p class="hero-subsubtitle">
+                        Explore our boutique studio catalog of hand-poured soy candles, cozy crochet toys, hand-painted art, and premium artisan Rakhis—all carefully made with premium materials.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#collection" class="btn btn-primary" id="hero-cta-btn">Explore Studio Creations</a>
+                        <a href="#story" class="btn btn-secondary" id="hero-secondary-btn">Our Story</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Propositions (3-Column Layout) -->
+        <section class="value-props-section">
+            <div class="container">
+                <div class="value-props-grid">
+                    <div class="value-prop-card reveal-element">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-hands-holding"></i>
+                        </div>
+                        <h3>100% Handcrafted</h3>
+                        <p>Every item is meticulously designed and crafted by hand with premium attention to detail and care.</p>
+                    </div>
+                    <div class="value-prop-card reveal-element">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3>Eco-Friendly &amp; Natural</h3>
+                        <p>We use biodegradable natural fibers, organic cords, and premium recycled paper packaging.</p>
+                    </div>
+                    <div class="value-prop-card reveal-element">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <h3>Empowering Small Artisans</h3>
+                        <p>We source raw materials locally and share our proceeds to support and uplift regional handicraft artists.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Catalog Section -->
+        <section class="collection-section" id="collection">
+            <div class="container">
+                <div class="section-header reveal-element">
+                    <span class="section-tag">Studio Catalog</span>
+                    <h2 class="section-title">Explore Our Creations</h2>
+                    <p class="section-desc">Choose from our selected, high-quality handcrafted collections, tailored to bring warmth and joy to your life.</p>
+                </div>
+
+                <!-- Search and Filters bar -->
+                <div class="collection-controls">
+                    <div class="filter-tabs" id="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">All Creations</button>
+                        <button class="filter-tab" data-filter="rakhi">Handmade Rakhis</button>
+                        <button class="filter-tab" data-filter="ganpati">Ganpati Collection</button>
+                        <button class="filter-tab" data-filter="diwali">Diwali Collection</button>
+                        <button class="filter-tab" data-filter="christmas">Christmas Collection</button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="products-grid" id="products-grid">
+                    <!-- Products will be generated dynamically by JavaScript -->
+                    <div class="grid-loading">Loading the collection...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story Section -->
+        <section class="story-section" id="story">
+            <div class="container story-container">
+                <div class="story-image-wrapper reveal-element">
+                    <img src="assets/story_founder_v2.png" alt="Our founder crafting handmade gifts in the studio" class="story-img" id="founder-story-image">
+                </div>
+                <div class="story-content reveal-element">
+                    <span class="section-tag">The Hearts Behind the Crafts</span>
+                    <h2 class="story-title">From Our Hands to Your Home</h2>
+                    <p class="story-paragraph">
+                        What started as a small kitchen table hobby in our family home has bloomed into a passionate multi-craft endeavor. Guided by a love for painting, traditional weaving, and handcrafting, we created Dilan's Creative Studio.
+                    </p>
+                    <p class="story-paragraph">
+                        Using carefully sourced natural materials like plant-based soy wax, premium organic cotton yarn, textured watercolor papers, and authentic festive threads, every piece is designed to tell a story. By choosing our creations, you are supporting independent handmade artistry, slow-design principles, and bringing home the warmth of a handcrafted touch.
+                    </p>
+                    <div class="story-quote">
+                        <p>"Every handmade piece carries a small part of the maker's heart, designed to turn simple moments into cherished memories."</p>
+                        <cite class="story-author">— Dilan, Founder</cite>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq">
+            <div class="container">
+                <div class="section-header reveal-element">
+                    <span class="section-tag">Got Questions?</span>
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-desc">Find quick answers regarding our packaging, shipping, materials, and ordering process.</p>
+                </div>
+
+                <div class="faq-accordion-wrapper">
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>What makes your studio creations unique?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p>Everything at Dilan's Creative Studio is 100% handmade in small batches. We use premium festive threads, fine textured papers, and custom craft techniques, ensuring each piece is one-of-a-kind.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>How long will shipping take?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p>We ship nationwide! Processing handmade orders takes 1-2 business days. Transit time for metro cities is 2-4 business days, and other regions take 4-7 business days. Custom/bulk commissions may require additional processing time.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>How do I care for my handcrafted Rakhis and art prints?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p>To keep your Rakhis looking beautiful, store them in a dry place and avoid contact with water or perfume. For art prints, frame them behind glass and keep them away from direct sunlight to preserve the vibrant colors.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-trigger" aria-expanded="false">
+                            <span>Can I order custom cards or personalized gifts?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p>Yes, absolutely! We love custom projects. You can select the "Send as Gift" option during checkout to add a custom note, or contact us directly on WhatsApp for custom illustration prints, greeting cards, or bulk party orders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer" id="contact">
+        <div class="container footer-container">
+            <div class="footer-brand-column">
+                <a href="#" class="logo footer-logo">
+                    <span class="logo-text">Dilan's Creative Studio</span><span class="logo-dot">.</span>
+                </a>
+                <p class="footer-tagline">Exquisite handcrafted soy candles, crochet crafts, art, and custom gifts made with love.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/dilanshambhwani007/?utm_source=ig_web_button_share_sheet" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#collection">Collection</a></li>
+                    <li><a href="#story">Our Story</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="admin.html">Admin Panel</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter-column">
+                <h4>Join Our Festive Circle</h4>
+                <p>Subscribe to receive early-bird festive discounts, crafting sneak peeks, and notifications when new designs drop.</p>
+                <form class="newsletter-form" id="newsletter-signup-form">
+                    <input type="email" id="newsletter-email" placeholder="Your Email Address" required aria-label="Your Email Address">
+                    <button type="submit" class="newsletter-submit-btn" id="newsletter-submit">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+                <div class="newsletter-status-message" id="newsletter-status"></div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p class="copyright">&copy; 2026 Dilan's Creative Studio. All Rights Reserved. Handmade with <i class="fa-solid fa-heart heart-beat"></i> in India.</p>
+                <p class="payments-support">We accept UPI, Credit/Debit Cards, Net Banking</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer (Slides from Right) -->
+    <div class="cart-drawer" id="cart-drawer-panel">
+        <div class="cart-drawer-header">
+            <h3>Your Shopping Cart (<span id="cart-total-count">0</span>)</h3>
+            <button class="cart-close-btn" id="cart-drawer-close" aria-label="Close cart">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        
+        <div class="cart-drawer-body" id="cart-drawer-items-list">
+            <!-- Dynamic Cart Items go here -->
+            <div class="cart-empty-state">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <p>Your cart is empty.</p>
+                <a href="#collection" class="btn btn-primary close-drawer-action" id="empty-cart-shop-btn">Shop Creations</a>
+            </div>
+        </div>
+
+        <div class="cart-drawer-footer" id="cart-drawer-footer-actions">
+            <div class="cart-totals">
+                <span>Total Amount:</span>
+                <span class="cart-total-price" id="cart-total-price-val">₹0</span>
+            </div>
+            <p class="cart-shipping-note">Free standard shipping on orders above ₹499.</p>
+            <button class="btn btn-primary btn-block" id="cart-checkout-btn"><i class="fa-brands fa-whatsapp"></i> Checkout via WhatsApp</button>
+        </div>
+    </div>
+    <div class="cart-backdrop" id="cart-backdrop-overlay"></div>
+
+    <!-- Product Quick View Modal -->
+    <div class="modal-overlay" id="quickview-modal-overlay">
+        <div class="modal-container modal-large">
+            <button class="modal-close-btn" id="quickview-modal-close" aria-label="Close details">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="quickview-grid" id="quickview-content-wrapper">
+                <!-- Dynamically injected product details -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal (Multi-step) -->
+    <div class="modal-overlay" id="checkout-modal-overlay">
+        <div class="modal-container modal-medium">
+            <button class="modal-close-btn" id="checkout-modal-close" aria-label="Close checkout">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="checkout-wrapper">
+                <!-- Checkout Steps Indicator -->
+                <div class="checkout-steps">
+                    <div class="step-indicator active" id="step-ind-1">
+                        <span class="step-num">1</span>
+                        <span class="step-label">Shipping</span>
+                    </div>
+                    <div class="step-connector" id="connector-1"></div>
+                    <div class="step-indicator" id="step-ind-2">
+                        <span class="step-num">2</span>
+                        <span class="step-label">Review &amp; Pay</span>
+                    </div>
+                    <div class="step-connector" id="connector-2"></div>
+                    <div class="step-indicator" id="step-ind-3">
+                        <span class="step-num">3</span>
+                        <span class="step-label">Order Placed</span>
+                    </div>
+                </div>
+
+                <!-- Step 1: Shipping Address Form -->
+                <div class="checkout-step-content active" id="checkout-step-1-form">
+                    <h3 class="checkout-title">Delivery Information</h3>
+                    <form id="shipping-details-form" class="checkout-form">
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label for="cust-name">Full Name *</label>
+                                <input type="text" id="cust-name" required placeholder="e.g. Rahul Sharma">
+                            </div>
+                            <div class="form-group">
+                                <label for="cust-phone">Phone Number *</label>
+                                <input type="tel" id="cust-phone" required placeholder="10-digit number" pattern="[0-9]{10}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cust-email">Email Address *</label>
+                            <input type="email" id="cust-email" required placeholder="name@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="cust-address">Shipping Address *</label>
+                            <input type="text" id="cust-address" required placeholder="Street address, Apartment, Suite">
+                        </div>
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label for="cust-city">City *</label>
+                                <input type="text" id="cust-city" required placeholder="e.g. Mumbai">
+                            </div>
+                            <div class="form-group">
+                                <label for="cust-pincode">Pincode *</label>
+                                <input type="text" id="cust-pincode" required placeholder="6-digit pincode" pattern="[0-9]{6}">
+                            </div>
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="gift-checkbox">
+                            <label for="gift-checkbox">Send as Gift (Add free greeting card)</label>
+                        </div>
+                        <div class="form-group hidden" id="gift-notes-group">
+                            <label for="gift-notes">Greeting Message for Sibling</label>
+                            <textarea id="gift-notes" placeholder="Write a short sweet message..." rows="3"></textarea>
+                        </div>
+                        
+                        <div class="checkout-actions">
+                            <button type="button" class="btn btn-link" id="cancel-checkout-btn">Back to Cart</button>
+                            <button type="submit" class="btn btn-primary" id="shipping-submit-btn">Next: Review Order</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 2: Review Order & simulated Payment Options -->
+                <div class="checkout-step-content" id="checkout-step-2-payment">
+                    <h3 class="checkout-title">Review &amp; Pay</h3>
+                    <div class="order-summary-box">
+                        <h4>Order Items</h4>
+                        <div class="order-summary-items" id="summary-items-container">
+                            <!-- Dynamic summary items -->
+                        </div>
+                        <div class="summary-totals-box">
+                            <div class="summary-line">
+                                <span>Subtotal:</span>
+                                <span id="summary-subtotal">₹0</span>
+                            </div>
+                            <div class="summary-line">
+                                <span>Shipping Charge:</span>
+                                <span id="summary-shipping">₹0</span>
+                            </div>
+                            <div class="summary-line total">
+                                <span>Grand Total:</span>
+                                <span id="summary-grandtotal">₹0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-method-box">
+                        <h4>Choose Payment Method</h4>
+                        <div class="payment-options">
+                            <label class="payment-option-card active">
+                                <input type="radio" name="payment-method" value="upi" checked>
+                                <span class="payment-icon"><i class="fa-solid fa-qrcode"></i></span>
+                                <span class="payment-text">UPI (GPay / PhonePe / Paytm)</span>
+                            </label>
+                            <label class="payment-option-card">
+                                <input type="radio" name="payment-method" value="card">
+                                <span class="payment-icon"><i class="fa-solid fa-credit-card"></i></span>
+                                <span class="payment-text">Credit / Debit Card</span>
+                            </label>
+                            <label class="payment-option-card">
+                                <input type="radio" name="payment-method" value="cod">
+                                <span class="payment-icon"><i class="fa-solid fa-truck"></i></span>
+                                <span class="payment-text">Cash on Delivery (COD)</span>
+                            </label>
+                        </div>
+
+                        <!-- Dynamic Payment Details -->
+                        <div class="payment-details-panel" id="payment-details-panel">
+                            <!-- UPI QR Mock -->
+                            <div class="upi-panel payment-panel-active" id="upi-method-panel">
+                                <p class="payment-info-text">Scan the QR code below using Google Pay, PhonePe, or BHIM UPI app to simulate the payment.</p>
+                                <div class="upi-qr-mock">
+                                    <div class="qr-code-placeholder">
+                                        <i class="fa-solid fa-qrcode"></i>
+                                    </div>
+                                    <span class="upi-payee">Payee: dilansrakhiedits@upi</span>
+                                </div>
+                            </div>
+                            <!-- Card inputs Mock -->
+                            <div class="card-panel hidden" id="card-method-panel">
+                                <div class="form-group">
+                                    <label for="card-num">Card Number</label>
+                                    <input type="text" id="card-num" placeholder="XXXX XXXX XXXX XXXX" pattern="[0-9\s]{16,19}">
+                                </div>
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label for="card-expiry">Expiry Date</label>
+                                        <input type="text" id="card-expiry" placeholder="MM/YY">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="card-cvv">CVV</label>
+                                        <input type="password" id="card-cvv" placeholder="123" pattern="[0-9]{3}">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- COD notes -->
+                            <div class="cod-panel hidden" id="cod-method-panel">
+                                <p class="payment-info-text"><i class="fa-solid fa-circle-info"></i> An additional fee of ₹40 applies for cash on delivery. Pay the courier agent upon receiving your beautiful Rakhi package.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkout-actions">
+                        <button type="button" class="btn btn-link" id="back-to-shipping-btn">Back to Delivery</button>
+                        <button type="button" class="btn btn-primary" id="place-order-btn">Pay &amp; Place Order</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Success Confirmation -->
+                <div class="checkout-step-content" id="checkout-step-3-success">
+                    <div class="success-illustration">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <h3 class="checkout-title">Order Placed Successfully!</h3>
+                    <p class="success-message">Thank you for shopping with Dilan's Creative Studio! Your order has been registered and is being prepared with handcrafted care.</p>
+                    <div class="order-details-card">
+                        <div class="detail-row">
+                            <span class="detail-label">Order ID:</span>
+                            <strong id="success-order-id">#BNDN-827364</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Est. Delivery:</span>
+                            <span id="success-delivery-date">July 20, 2026</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Sent to:</span>
+                            <span id="success-cust-name">Rahul Sharma</span>
+                        </div>
+                    </div>
+                    <p class="success-shipping-info">A confirmation email and SMS with tracking details will be sent to you shortly.</p>
+                    <div class="success-actions">
+                        <button class="btn btn-primary btn-block" id="success-close-btn">Continue Shopping</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal for Full Screen Image -->
+    <div class="lightbox-overlay" id="lightbox-overlay">
+        <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close fullscreen image">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="lightbox-content">
+            <img src="" alt="Fullscreen view" id="lightbox-main-img">
+        </div>
+    </div>
+
+    <!-- Floating Support Action Button -->
+    <a href="https://wa.me/918237927007?text=Hi!%20I'm%20interested%20in%20your%20handcrafted%20studio%20creations." class="floating-whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="tooltip-text">Chat with us!</span>
+    </a>
+
+    <!-- Toast Notifications List -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- JavaScript Controller -->
+    <script src="app.js?v=18"></script>
+</body>
+</html>
