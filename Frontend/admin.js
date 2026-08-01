@@ -1,4 +1,4 @@
-const API_URL = `https://dilan-s-creative-studio.onrender.com:3000/api/products`;
+const API_URL = `https://dilan-s-creative-studio.onrender.com/api/products`;
 let products = [];
 
 // DOM Elements
