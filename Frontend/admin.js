@@ -1,4 +1,4 @@
-const API_URL = `http://${window.location.hostname}:3000/api/products`;
+const API_URL = `https://dilan-s-creative-studio.onrender.com:3000/api/products`;
 let products = [];
 
 // DOM Elements
@@ -113,9 +113,9 @@ btnCancel.addEventListener('click', () => {
 // Form Submit
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const id = document.getElementById('prod-id').value;
-    
+
     // Base product template
     const productData = {
         name: document.getElementById('prod-name').value,
@@ -161,7 +161,7 @@ form.addEventListener('submit', async (e) => {
                 body: JSON.stringify(productData)
             });
         }
-        
+
         modal.classList.remove('active');
         fetchProducts(); // Refresh list
     } catch (err) {
@@ -195,7 +195,7 @@ window.editProduct = (id) => {
         document.getElementById('prod-image').value = p.image;
         document.getElementById('prod-desc').value = p.description || "";
         document.getElementById('prod-variant-type').value = p.variantType || "colors";
-        
+
         // Populate variants
         variantsContainer.innerHTML = '';
         if (p.colors && p.images) {
