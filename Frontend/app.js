@@ -94,7 +94,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const res = await fetch("https://dilan-s-creative-studio.onrender.com/api/products");
-        PRODUCTS = await res.json();
+        let fetchedProducts = await res.json();
+        
+        // Sort by sortOrder (ascending). Missing sortOrder goes to bottom.
+        fetchedProducts.sort((a, b) => {
+            const orderA = a.sortOrder !== undefined ? Number(a.sortOrder) : 999;
+            const orderB = b.sortOrder !== undefined ? Number(b.sortOrder) : 999;
+            return orderA - orderB;
+        });
+        
+        PRODUCTS = fetchedProducts;
     } catch (err) {
         console.error("Failed to fetch products", err);
     }

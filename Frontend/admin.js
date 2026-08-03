@@ -50,7 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchProducts() {
     try {
         const res = await fetch(API_URL);
-        products = await res.json();
+        let fetchedProducts = await res.json();
+        
+        fetchedProducts.sort((a, b) => {
+            const orderA = a.sortOrder !== undefined ? Number(a.sortOrder) : 999;
+            const orderB = b.sortOrder !== undefined ? Number(b.sortOrder) : 999;
+            return orderA - orderB;
+        });
+        
+        products = fetchedProducts;
         renderTable();
     } catch (e) {
         console.error("Failed to fetch products", e);
@@ -64,6 +72,7 @@ function renderTable() {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>${p.id}</td>
+            <td>${p.sortOrder !== undefined ? p.sortOrder : 999}</td>
             <td><img src="${p.image}" alt="${p.name}"></td>
             <td>${p.name}</td>
             <td>${p.category}</td>
@@ -101,6 +110,7 @@ btnAdd.addEventListener('click', () => {
     form.reset();
     document.getElementById('prod-id').value = '';
     document.getElementById('prod-price-unit').value = '';
+    document.getElementById('prod-sort-order').value = '';
     variantsContainer.innerHTML = ''; // Clear variants
     modalTitle.textContent = "Add Product";
     modal.classList.add('active');
@@ -116,7 +126,6 @@ form.addEventListener('submit', async (e) => {
 
     const id = document.getElementById('prod-id').value;
 
-    // Base product template
     const productData = {
         name: document.getElementById('prod-name').value,
         category: document.getElementById('prod-category').value,
@@ -124,6 +133,7 @@ form.addEventListener('submit', async (e) => {
         priceUnit: document.getElementById('prod-price-unit').value,
         image: document.getElementById('prod-image').value,
         description: document.getElementById('prod-desc').value,
+        sortOrder: document.getElementById('prod-sort-order').value ? Number(document.getElementById('prod-sort-order').value) : 999,
         rating: 5.0,
         reviewsCount: 1,
         badge: "New Arrival",
@@ -194,6 +204,7 @@ window.editProduct = (id) => {
         document.getElementById('prod-price-unit').value = p.priceUnit || "";
         document.getElementById('prod-image').value = p.image;
         document.getElementById('prod-desc').value = p.description || "";
+        document.getElementById('prod-sort-order').value = p.sortOrder !== undefined ? p.sortOrder : "";
         document.getElementById('prod-variant-type').value = p.variantType || "colors";
 
         // Populate variants
