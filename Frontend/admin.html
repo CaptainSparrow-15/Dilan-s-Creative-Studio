@@ -46,16 +46,21 @@
         <main class="main-content">
             <header class="topbar">
                 <h1>Product Management</h1>
-                <button class="btn btn-primary" id="btn-add-product">
-                    <i class="fa-solid fa-plus"></i> Add New Product
-                </button>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-secondary" id="btn-save-order" style="display: none; background-color: #28a745; color: white; border: none;">
+                        <i class="fa-solid fa-save"></i> Save Order
+                    </button>
+                    <button class="btn btn-primary" id="btn-add-product">
+                        <i class="fa-solid fa-plus"></i> Add New Product
+                    </button>
+                </div>
             </header>
 
             <div class="card">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th><i class="fa-solid fa-sort" style="color: #999;"></i> ID</th>
                             <th>Order</th>
                             <th>Image</th>
                             <th>Name</th>

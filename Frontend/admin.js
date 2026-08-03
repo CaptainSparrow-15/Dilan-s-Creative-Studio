@@ -70,8 +70,11 @@ function renderTable() {
     tbody.innerHTML = '';
     products.forEach(p => {
         const tr = document.createElement('tr');
+        tr.draggable = true;
+        tr.dataset.id = p.id;
+        tr.style.cursor = 'grab';
         tr.innerHTML = `
-            <td>${p.id}</td>
+            <td><i class="fa-solid fa-grip-vertical" style="color: #ccc; margin-right: 8px;"></i>${p.id}</td>
             <td>${p.sortOrder !== undefined ? p.sortOrder : 999}</td>
             <td><img src="${p.image}" alt="${p.name}"></td>
             <td>${p.name}</td>
@@ -83,6 +86,54 @@ function renderTable() {
             </td>
         `;
         tbody.appendChild(tr);
+    });
+    setupDragAndDrop();
+}
+
+let draggedRow = null;
+function setupDragAndDrop() {
+    const rows = tbody.querySelectorAll('tr');
+    rows.forEach(row => {
+        row.addEventListener('dragstart', function(e) {
+            draggedRow = this;
+            e.dataTransfer.effectAllowed = 'move';
+            this.style.opacity = '0.5';
+        });
+
+        row.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            this.style.borderTop = '2px solid var(--primary)';
+            return false;
+        });
+
+        row.addEventListener('dragleave', function(e) {
+            this.style.borderTop = '';
+        });
+
+        row.addEventListener('drop', function(e) {
+            e.stopPropagation();
+            this.style.borderTop = '';
+            if (draggedRow !== this) {
+                const allRows = Array.from(tbody.querySelectorAll('tr'));
+                const draggedIndex = allRows.indexOf(draggedRow);
+                const targetIndex = allRows.indexOf(this);
+                
+                if (draggedIndex < targetIndex) {
+                    this.parentNode.insertBefore(draggedRow, this.nextSibling);
+                } else {
+                    this.parentNode.insertBefore(draggedRow, this);
+                }
+                
+                document.getElementById('btn-save-order').style.display = 'inline-block';
+            }
+            return false;
+        });
+
+        row.addEventListener('dragend', function(e) {
+            this.style.opacity = '1';
+            rows.forEach(r => r.style.borderTop = '');
+        });
     });
 }
 
@@ -104,6 +155,45 @@ function createVariantRow(name = '', url = '') {
 }
 
 btnAddVariant.addEventListener('click', () => createVariantRow());
+
+// Save Order
+const btnSaveOrder = document.getElementById('btn-save-order');
+btnSaveOrder.addEventListener('click', async () => {
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    btnSaveOrder.disabled = true;
+    btnSaveOrder.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+    
+    try {
+        const updatePromises = rows.map((row, index) => {
+            const id = Number(row.dataset.id);
+            const newOrder = index + 1;
+            
+            const prod = products.find(p => p.id === id);
+            if (prod && prod.sortOrder !== newOrder) {
+                prod.sortOrder = newOrder;
+                return fetch(`${API_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(prod)
+                });
+            }
+            return Promise.resolve();
+        });
+        
+        await Promise.all(updatePromises);
+        
+        btnSaveOrder.style.display = 'none';
+        btnSaveOrder.disabled = false;
+        btnSaveOrder.innerHTML = '<i class="fa-solid fa-save"></i> Save Order';
+        
+        fetchProducts(); // Refresh
+    } catch (e) {
+        console.error(e);
+        alert("Failed to save order.");
+        btnSaveOrder.disabled = false;
+        btnSaveOrder.innerHTML = '<i class="fa-solid fa-save"></i> Save Order';
+    }
+});
 
 // Modal Handlers
 btnAdd.addEventListener('click', () => {
