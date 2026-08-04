@@ -1,12 +1,17 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const dataFile = path.join(__dirname, 'data', 'products.json');
+
+const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 app.use(cors());
 app.use(express.json());
@@ -14,83 +19,85 @@ app.use(express.json());
 // Serve frontend static files
 app.use(express.static(path.join(__dirname, '..')));
 
-// Helper to read data
-const readData = () => {
-    const raw = fs.readFileSync(dataFile);
-    return JSON.parse(raw);
-};
-
-// Helper to write data
-const writeData = (data) => {
-    fs.writeFileSync(dataFile, JSON.stringify(data, null, 4));
-};
-
 // GET all products
-app.get('/api/products', (req, res) => {
+app.get('/api/products', async (req, res) => {
     try {
-        const products = readData();
-        res.json(products);
+        const { data, error } = await supabase
+            .from('products')
+            .select('*')
+            .order('id', { ascending: true });
+
+        if (error) throw error;
+        res.json(data);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: "Failed to read products" });
     }
 });
 
 // POST new product
-app.post('/api/products', (req, res) => {
+app.post('/api/products', async (req, res) => {
     try {
-        const products = readData();
         const newProduct = req.body;
-        
-        // Generate new ID
-        const maxId = products.length > 0 ? Math.max(...products.map(p => p.id)) : 0;
-        newProduct.id = maxId + 1;
-        
-        products.push(newProduct);
-        writeData(products);
-        
-        res.status(201).json(newProduct);
+        delete newProduct.id; // let Postgres auto-generate the id
+
+        const { data, error } = await supabase
+            .from('products')
+            .insert(newProduct)
+            .select()
+            .single();
+
+        if (error) throw error;
+        res.status(201).json(data);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: "Failed to save product" });
     }
 });
 
 // PUT update product
-app.put('/api/products/:id', (req, res) => {
+app.put('/api/products/:id', async (req, res) => {
     try {
-        const products = readData();
         const id = parseInt(req.params.id);
-        const index = products.findIndex(p => p.id === id);
-        
-        if (index === -1) {
-            return res.status(404).json({ error: "Product not found" });
-        }
-        
-        const updatedProduct = { ...products[index], ...req.body, id }; // Ensure ID doesn't change
-        products[index] = updatedProduct;
-        writeData(products);
-        
-        res.json(updatedProduct);
+        const updates = { ...req.body };
+        delete updates.id; // never allow id to change
+
+        const { data, error } = await supabase
+            .from('products')
+            .update(updates)
+            .eq('id', id)
+            .select()
+            .single();
+
+        if (error) throw error;
+        if (!data) return res.status(404).json({ error: "Product not found" });
+
+        res.json(data);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: "Failed to update product" });
     }
 });
 
 // DELETE product
-app.delete('/api/products/:id', (req, res) => {
+app.delete('/api/products/:id', async (req, res) => {
     try {
-        let products = readData();
         const id = parseInt(req.params.id);
-        
-        const initialLength = products.length;
-        products = products.filter(p => p.id !== id);
-        
-        if (products.length === initialLength) {
+
+        const { data, error } = await supabase
+            .from('products')
+            .delete()
+            .eq('id', id)
+            .select();
+
+        if (error) throw error;
+        if (!data || data.length === 0) {
             return res.status(404).json({ error: "Product not found" });
         }
-        
-        writeData(products);
+
         res.json({ success: true, message: "Product deleted" });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: "Failed to delete product" });
     }
 });
