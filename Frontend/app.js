@@ -501,13 +501,13 @@ function saveCartToStorage() {
 }
 
 function addToCart(productId, quantity, color) {
-    const product = PRODUCTS.find(p => p.id === productId);
+    const product = PRODUCTS.find(p => String(p.id) === String(productId));
     if (!product) return;
 
-    const selectedColor = color || (product.colors ? product.colors[0] : null);
-    const selectedImage = selectedColor ? product.images[selectedColor] : product.image;
+    const selectedColor = color || (product.colors && product.colors.length > 0 ? product.colors[0] : null) || null;
+    const selectedImage = selectedColor && product.images ? product.images[selectedColor] : product.image;
 
-    const existingItem = cart.find(item => item.id === productId && item.color === selectedColor);
+    const existingItem = cart.find(item => String(item.id) === String(productId) && (item.color || null) === selectedColor);
     if (existingItem) {
         existingItem.quantity += quantity;
     } else {
@@ -524,12 +524,12 @@ function addToCart(productId, quantity, color) {
 
     saveCartToStorage();
     updateCartUI();
-    showToast(`Added ${quantity} x "${product.name} (${selectedColor})" to cart!`, "success");
+    showToast(`Added ${quantity} x "${product.name}${selectedColor ? ` (${selectedColor})` : ''}" to cart!`, "success");
 }
 
 function removeFromCart(productId, color) {
-    const item = cart.find(i => i.id === productId && i.color === color);
-    cart = cart.filter(i => !(i.id === productId && i.color === color));
+    const item = cart.find(i => String(i.id) === String(productId) && (i.color || null) === (color || null));
+    cart = cart.filter(i => !(String(i.id) === String(productId) && (i.color || null) === (color || null)));
     saveCartToStorage();
     updateCartUI();
     if (item) {
@@ -538,7 +538,7 @@ function removeFromCart(productId, color) {
 }
 
 function updateQuantity(productId, color, delta) {
-    const item = cart.find(i => i.id === productId && i.color === color);
+    const item = cart.find(i => String(i.id) === String(productId) && (i.color || null) === (color || null));
     if (!item) return;
 
     item.quantity += delta;
