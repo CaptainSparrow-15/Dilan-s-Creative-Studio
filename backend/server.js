@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const os = require('os');
 const { createClient } = require('@supabase/supabase-js');
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,58 @@ app.use(express.json());
 
 // Serve frontend static files
 app.use(express.static(path.join(__dirname, '..')));
+
+// Configure Multer for memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// GET all images from Supabase storage
+app.get('/api/images', async (req, res) => {
+    try {
+        const { data, error } = await supabase.storage.from('product-images').list();
+        if (error) throw error;
+        
+        // Filter out any potential empty/folder items if needed, and map to include public URL
+        const images = data
+            .filter(item => item.name !== '.emptyFolderPlaceholder')
+            .map(item => ({
+                name: item.name,
+                publicUrl: `${process.env.SUPABASE_URL}/storage/v1/object/public/product-images/${item.name}`
+            }));
+            
+        res.json(images);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to read images" });
+    }
+});
+
+// POST new image to Supabase storage
+app.post('/api/upload', upload.single('image'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: "No image file provided" });
+        }
+
+        const file = req.file;
+        const fileExt = file.originalname.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+        
+        const { data, error } = await supabase.storage
+            .from('product-images')
+            .upload(fileName, file.buffer, {
+                contentType: file.mimetype
+            });
+
+        if (error) throw error;
+
+        const publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/product-images/${fileName}`;
+        res.status(201).json({ name: fileName, publicUrl });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to upload image" });
+    }
+});
 
 // GET all products
 app.get('/api/products', async (req, res) => {
@@ -53,6 +106,13 @@ app.post('/api/products', async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Failed to save product" });
     }
+});
+
+app.post('/api/products/bulk', async (req, res) => {
+    const products = req.body; // array of product objects
+    const { data, error } = await supabase.from('products').insert(products).select();
+    if (error) throw error;
+    res.status(201).json(data);
 });
 
 // PUT update product

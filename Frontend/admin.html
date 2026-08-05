@@ -50,6 +50,9 @@
                     <button class="btn btn-secondary" id="btn-save-order" style="display: none; background-color: #28a745; color: white; border: none;">
                         <i class="fa-solid fa-save"></i> Save Order
                     </button>
+                    <button class="btn btn-secondary" id="btn-bulk-add-product" style="margin-right: 10px;">
+                        <i class="fa-solid fa-layer-group"></i> Bulk Add Products
+                    </button>
                     <button class="btn btn-primary" id="btn-add-product">
                         <i class="fa-solid fa-plus"></i> Add New Product
                     </button>
@@ -110,7 +113,11 @@
                 </div>
                 <div class="form-group">
                     <label>Image URL</label>
-                    <input type="text" id="prod-image" placeholder="assets/image.png" required>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="hidden" id="prod-image" required>
+                        <button type="button" class="btn btn-secondary" onclick="openImagePicker('prod-image', 'prod-image-preview')">Select Image</button>
+                        <img id="prod-image-preview" src="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; display: none;">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Description</label>
@@ -134,6 +141,48 @@
         </div>
     </div>
 
-    <script src="admin.js?v=3"></script>
+    <!-- Image Picker Modal -->
+    <div class="modal-overlay" id="image-picker-modal" style="z-index: 1000;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2>Select Image</h2>
+                <button type="button" class="btn btn-secondary" id="btn-close-image-picker">Close</button>
+            </div>
+            
+            <div style="margin-bottom: 20px; padding: 15px; background: var(--bg-light); border-radius: 4px; border: 1px dashed var(--border);">
+                <h4>Upload New Image</h4>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <input type="file" id="image-upload-input" accept="image/*" style="flex: 1;">
+                    <button type="button" class="btn btn-primary" id="btn-upload-image">Upload</button>
+                </div>
+                <div id="upload-status" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);"></div>
+            </div>
+
+            <h4>Existing Images</h4>
+            <div id="image-picker-grid" class="image-picker-grid">
+                <!-- Grid items populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Add Modal -->
+    <div class="modal-overlay" id="bulk-modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <h2>Bulk Add Products</h2>
+            <div id="bulk-rows-container" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Rows populated by JS -->
+            </div>
+            <div style="margin-top: 20px;">
+                <button type="button" class="btn btn-secondary" id="btn-add-bulk-row">+ Add Another Product</button>
+            </div>
+            <div id="bulk-error" class="login-error hidden" style="margin-top: 15px;">Please fill in all required fields (Name, Category, Price, and at least one Image).</div>
+            <div class="form-actions" style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
+                <button type="button" class="btn btn-secondary" id="btn-cancel-bulk">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btn-save-bulk">Save All</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js?v=4"></script>
 </body>
 </html>
